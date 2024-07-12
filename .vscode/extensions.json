@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "mhutchie.git-graph",
+    "github.vscode-github-actions",
+    "github.github-vscode-theme",
+    "github.vscode-pull-request-github",
+    "christian-kohler.path-intellisense",
+    "yatki.vscode-surround",
+    "redhat.vscode-yaml",
+    "vscode-icons-team.vscode-icons",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-containers",
+    "usernamehw.errorlens",
+    "mikestead.dotenv"
+  ]
+}
