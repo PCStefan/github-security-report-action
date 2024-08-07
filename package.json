@@ -22,7 +22,7 @@
     "type": "git"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18 <21"
   },
   "main": "index.js",
   "scripts": {},
