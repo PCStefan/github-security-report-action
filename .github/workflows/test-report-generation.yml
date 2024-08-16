@@ -24,12 +24,12 @@ jobs:
       - name: "Generate a report"
         uses: ./
         with:
+          repository: ${{ github.repository }}
           token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
           outputDir: ./output
           outputFilename: "summary.pdf"
           templateModelReport: "summary.html"
-          repository: ${{ github.workspace }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
