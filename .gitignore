@@ -310,3 +310,13 @@ dist
 
 # Any PDF files generated from testing
 *.pdf
+
+# Intermeidate directory to TS to JS
+lib
+
+# Binary executables
+github-security-report*
+.local-chromium/
+runtime/
+tmp/
+*.zip
