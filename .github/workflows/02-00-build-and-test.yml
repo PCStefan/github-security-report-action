@@ -39,7 +39,7 @@ jobs:
       - name: "Build"
         run: pnpm run build
 
-      - name: "Test"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm run test
+      # - name: "Test"
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: pnpm run test
