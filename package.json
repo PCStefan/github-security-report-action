@@ -24,9 +24,37 @@
   "engines": {
     "node": ">=18 <21"
   },
-  "main": "index.js",
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {},
+  "main": "lib/index.js",
+  "scripts": {
+    "pre-build": "rm -rf ./dist ./lib ./runtime",
+    "build": "tsc",
+    "pre-build-exe": "pnpm run build && ncc build lib/executable.js -o runtime",
+    "build-exe": "pnpm run pre-build-exe && nexe -i runtime/index.js --build --verbose -o github-security-report",
+    "package": "pnpm run build && ncc build --source-map",
+    "postpack": "tarball=$(npm list - depth 0 | sed 's/@/-/g; s/ .*/.tgz/g; 1q;'); tar -tf $tarball | sed 's/^package\\///' | zip -@r github-security-report-bundle",
+    "test": "mocha --recursive -r ts-node/register \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/io": "^1.1.3",
+    "@octokit/plugin-paginate-rest": "^11.3.3",
+    "@octokit/rest": "^21.0.1",
+    "commander": "^12.1.0",
+    "nunjucks": "^3.2.4",
+    "puppeteer": "^23.1.0",
+    "puppeteer-core": "^23.0.2"
+  },
+  "devDependencies": {
+    "@octokit/types": "^13.5.0",
+    "@types/chai": "^4.3.17",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^18.15.3",
+    "@vercel/ncc": "^0.38.1",
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3",
+    "nexe": "^4.0.0-rc.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.9.5"
+  },
   "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }
