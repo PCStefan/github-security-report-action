@@ -1,4 +1,4 @@
-# github-security-report-action
+# GitHub - Security Report Generator
 
 A GitHub Action for generating PDF reports for GitHub Advanced Security Code Scan Results and Dependency Vulnerabilities.
 
@@ -21,11 +21,14 @@ providing a roll up summary security report in HTML.
 Using this HTML, it then passes it over to Puppeteer to render this in a headless Chromium before generating a PDF and
 saving it in the specified directory.
 
+
 ## Parameters
 
-* `token`: A GitHub Personal Access Token with access to `repo` scope
+* `token`: A GitHub Personal Access Token with access to `repo` scope or you can use `${{ secrets.GITHUB_TOKEN }}` instead of PAT) 
 * `sarifReportDir`: The directory to look for SARIF reports (from the CodeQL analyze action this defaults to `../results`)
 * `outputDir`: The output directory for the PDF reports, defaults to `github.workspace`
+* `outputFilename`: The name of the output file for the generated report(s), github-action defaults to `summary.pdf`
+* `templateModelReport`: The name of the template used to generate report(s)., defaults to `summary.html`
 * `repository`: The repository in `<owner>/<repo_name>` form, defaults to `github.repository`
 
 
@@ -39,7 +42,7 @@ a future release to provide customization of these templates, via an ability to 
 
 ```
 name: Generate Security Report
-uses: peter-murray/github-security-report-action@v2
+uses: PCStefan/github-security-report-action@v3
 with:
   token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -47,35 +50,43 @@ with:
 Example summary report output:
 ![Example summary report](summary_report_example.png)
 
+---
+
 
 ## Standalone execution
 
-For the v2 version, there are bundles that can be used to provide a command line client executable for Linux, MacOS and Windows platforms. The bundles can be downloaded from the [v2 Release](https://github.com/peter-murray/github-security-report-action/releases/tag/v2) assets.
+For this version, an executable is possible only if you are going to be able to build `node` locally:
+- Get `Node 18+` (tested with node 18.20.4 and node20.15.1)
+- Get `NASM` installed (nasm-2.16.03-installer-x64.exe -- https://www.nasm.us/pub/nasm/releasebuilds/?C=M;O=D)
+- Get `Python3.11` (any version after 3.12 does not work as it does not contain a library to build node)
+- Get `Visual Studio 2019 or later` (tested with VS2022, v17.11) (there is a known issue with VS2022-v17.10, so update your VS to avoid any issues)
 
-* [Linux bundle](https://github.com/peter-murray/github-security-report-action/releases/download/v2/github-security-report-bundle-linux-x64.zip)
-* [MacOS bundle](https://github.com/peter-murray/github-security-report-action/releases/download/v2/github-security-report-bundle-mac-x64.zip)
-* [Windows bundle](https://github.com/peter-murray/github-security-report-action/releases/download/v2/github-security-report-bundle-windows-x64.zip)
-
-### Installation
-Just download and extract the zip bundle for your target platform. Inside there is a file starting with `github-security-report` with a target platform suffix or .exe extension in the case of Windows.
+### Build executable
+- Open `Developer Command Prompt for Visual Studio 2022" (not powershell)
+- Navigate to where you cloned this
+- Run `pnpm run build-exe`
 
 ### Running
 Just call the platform executable and pass in the arguments as required. The arguments are the same as that of the GitHub Action, and you can get the full details from invoking the `--help` option on the executable as it will output detailed help
 
 Options:
-* `-t`, `--token`: The GitHub Personal Access Token that has the necessary access for security and dependency API endpoints.
-* `-r`, `--repository`: The repository that contains the source code, in `<owner>/<repository_name>` form, e.g. `peter-murray/node-hue-api`
-* `-s`, `--sarif-directory`: The directory containing the SARIF report files
-* `-o`, `--output-directory`: The directory to output the PDF report to. This will be created if it does not exist.
+- Please see: [Options with executable](https://github.com/PCStefan/github-security-report-action/blob/main/src/executable.ts#L14-L21)
 
-An example of running the MacOS command line executable from the un:
+An example of running the executable on Windows.
 ```
-$ ./github-security-report-mac-x64 -t <GitHub PAT Token> -r peter-murray/node-hue-api -s <directory containing CodeQL SARIF file(s)>
+$ ./github-security-report.exe <options>[] 
 ```
-The above command would output a `summary.pdf` file in the current working directory.
 
-## Future improvements
 
-* Add support for selecting reporting templates to the parameters
-* Example of extending html templates and using them
+--
 
+## Notes
+
+```
+Forked with history reset from: https://github.com/peter-murray/github-security-report-action
+
+Changes
+- Updated packages to be compatible with node18+.
+- Fixed infinite loop of fetching paginated results.
+- Added 2 optional configuration variables: [ "outputFilename", "templateModelReport"]
+```
