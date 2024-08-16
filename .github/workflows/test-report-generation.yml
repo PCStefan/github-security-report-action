@@ -21,6 +21,9 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
+      - name: "Install browser via puppeteer"
+        run: npx puppeteer browsers install chrome
+
       - name: "Generate a report"
         uses: ./
         with:
