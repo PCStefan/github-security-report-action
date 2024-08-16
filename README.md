@@ -48,7 +48,7 @@ with:
 ```
 
 Example summary report output:
-![Example summary report](summary_report_example.png)
+![Example summary report](./samples/summary.pdf)
 
 ---
 
@@ -58,7 +58,7 @@ Example summary report output:
 For this version, an executable is possible only if you are going to be able to build `node` locally:
 - Get `Node 18+` (tested with node 18.20.4 and node20.15.1)
 - Get `NASM` installed (nasm-2.16.03-installer-x64.exe -- https://www.nasm.us/pub/nasm/releasebuilds/?C=M;O=D)
-- Get `Python3.11` (any version after 3.12 does not work as it does not contain a library to build node)
+- Get `Python v3.11` (any version after 3.12 does not work as it does not contain a library to build node)
 - Get `Visual Studio 2019 or later` (tested with VS2022, v17.11) (there is a known issue with VS2022-v17.10, so update your VS to avoid any issues)
 
 ### Build executable
@@ -78,7 +78,7 @@ $ ./github-security-report.exe <options>[]
 ```
 
 
---
+---
 
 ## Notes
 
