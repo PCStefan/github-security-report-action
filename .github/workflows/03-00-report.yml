@@ -2,6 +2,7 @@ name: "03-00-Report"
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   test:
@@ -24,7 +25,7 @@ jobs:
       - name: "Generate a report"
         uses: ./
         with:
-          token: ${{ secrets.SECURITY_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
           outputDir: ./output
           outputFilename: "summary.pdf"
