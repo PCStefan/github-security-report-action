@@ -1,0 +1,46 @@
+name: "02-00-Build and Test"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    name: "Build and Test"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 60
+    permissions:
+      security-events: read
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Install pnpm"
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: "Install Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: "Install npm packages"
+        run: pnpm install
+
+      - name: "Build"
+        run: pnpm run build
+
+      - name: "Test"
+        env:
+          GH_TOKEN: ${{ secrets.SECURITY_TOKEN }}
+        run: pnpm run test

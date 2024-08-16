@@ -1,0 +1,41 @@
+name: GitHub Security Report Action
+description: Generates security reports for a GitHub repository
+author: Peter Murray, Stefan Padurariu
+
+inputs:
+  token:
+    description: GitHub Access Token with permissions for Dependencies and Security API access on the repository.
+    required: true
+
+  sarifReportDir:
+    description: The CodeQL output directory for SARIF report(s).
+    required: true
+    default: "../results"
+
+  outputDir:
+    description: The output directory for the generated report(s).
+    required: true
+    default: ${{ github.workspace }}
+
+  outputFilename:
+    description: The name of the output file for the generated report(s).
+    required: false
+    default: "summary.pdf"
+
+  templateModelReport:
+    description: The name of the output file for the generated report(s).
+    required: false
+    default: "summary.html"
+
+  repository:
+    description: Repository name with owner. For example, peter-murray/github-security-report
+    required: true
+    default: ${{ github.repository }}
+
+runs:
+  using: node20
+  main: dist/index.js
+
+branding:
+  icon: book
+  color: green

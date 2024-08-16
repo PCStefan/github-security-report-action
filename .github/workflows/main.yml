@@ -1,0 +1,23 @@
+name: "Main"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  analyze:
+    uses: ./.github/workflows/01-00-codeql-analysis.yml
+    secrets: inherit
+
+  build_and_unit_test:
+    needs: [analyze]
+    uses: ./.github/workflows/02-00-build-and-test.yml
+    secrets: inherit
+
+  report:
+    needs: [build_and_unit_test]
+    uses: ./.github/workflows/03-00-report.yml
+    secrets: inherit

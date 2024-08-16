@@ -16,7 +16,7 @@ async function run(): Promise<void> {
       outputFile: getRequiredInputValue('outputFilename'),
 
       templating: {
-        name: 'executive_summary'
+        name: getRequiredInputValue('templateModelReport')
       }
     })
 
