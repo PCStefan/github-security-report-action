@@ -40,15 +40,17 @@ a future release to provide customization of these templates, via an ability to 
 
 ## Examples
 
+Please refer to: [test-report-generation.yml > "Generate a report" step](https://github.com/PCStefan/github-security-report-action/blob/main/.github/workflows/test-report-generation.yml#L27) to see how to add this to your github repo workflow.
+
 ```
-name: Generate Security Report
-uses: PCStefan/github-security-report-action@v3
-with:
-  token: ${{ secrets.GITHUB_TOKEN }}
+  - name: "Generate Security Report"
+    uses: PCStefan/github-security-report-action@v3
+    with:
+      ...
 ```
 
-Example summary report output:
-![Example summary report](./samples/summary.pdf)
+Output:
+Example summary report output: [Example summary report](./samples/summary.pdf)
 
 ---
 
