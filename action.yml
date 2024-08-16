@@ -23,7 +23,7 @@ inputs:
     default: "summary.pdf"
 
   templateModelReport:
-    description: "The name of the output file for the generated report(s)."
+    description: "The name of the template used to generate report(s)."
     required: false
     default: "summary.html"
 
