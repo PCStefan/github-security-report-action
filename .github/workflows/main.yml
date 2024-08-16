@@ -16,8 +16,3 @@ jobs:
     needs: [analyze]
     uses: ./.github/workflows/02-00-build-and-test.yml
     secrets: inherit
-
-  report:
-    needs: [build_and_unit_test]
-    uses: ./.github/workflows/03-00-report.yml
-    secrets: inherit
