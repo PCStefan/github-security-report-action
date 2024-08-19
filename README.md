@@ -24,7 +24,7 @@ saving it in the specified directory.
 
 ## Parameters
 
-* `token`: A GitHub Personal Access Token with access to `repo` scope or you can use `${{ secrets.GITHUB_TOKEN }}` instead of PAT) 
+* `token`: A GitHub Personal Access Token with access to `repo` scope or you can use `${{ secrets.GITHUB_TOKEN }}` instead of PAT)
 * `sarifReportDir`: The directory to look for SARIF reports (from the CodeQL analyze action this defaults to `../results`)
 * `outputDir`: The output directory for the PDF reports, defaults to `github.workspace`
 * `outputFilename`: The name of the output file for the generated report(s), github-action defaults to `summary.pdf`
@@ -43,6 +43,9 @@ a future release to provide customization of these templates, via an ability to 
 Please refer to: [test-report-generation.yml > "Generate a report" step](https://github.com/PCStefan/github-security-report-action/blob/main/.github/workflows/test-report-generation.yml#L27) to see how to add this to your github repo workflow.
 
 ```
+  - name: "Install browser via puppeteer"
+    run: npx puppeteer browsers install chrome
+
   - name: "Generate Security Report"
     uses: PCStefan/github-security-report-action@v3
     with:
@@ -76,7 +79,7 @@ Options:
 
 An example of running the executable on Windows.
 ```
-$ ./github-security-report.exe <options>[] 
+$ ./github-security-report.exe <options>[]
 ```
 
 
