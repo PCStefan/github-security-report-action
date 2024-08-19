@@ -24,7 +24,27 @@ jobs:
       - name: "Install browser via puppeteer"
         run: npx puppeteer browsers install chrome
 
-      - name: "Generate a report"
+      - name: "Generate a report: executive_summary"
+        uses: ./
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
+          outputDir: ./output
+          outputFilename: "executive_summary.pdf"
+          templateModelReport: "executive_summary.html"
+
+      - name: "Generate a report: summary_old"
+        uses: ./
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
+          outputDir: ./output
+          outputFilename: "summary_old.pdf"
+          templateModelReport: "summary_old.html"
+
+      - name: "Generate a report: summary"
         uses: ./
         with:
           repository: ${{ github.repository }}
@@ -33,6 +53,16 @@ jobs:
           outputDir: ./output
           outputFilename: "summary.pdf"
           templateModelReport: "summary.html"
+
+      - name: "Generate a report: vulnerability"
+        uses: ./
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
+          outputDir: ./output
+          outputFilename: "vulnerability.pdf"
+          templateModelReport: "vulnerability.html"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
