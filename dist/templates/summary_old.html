@@ -10,25 +10,25 @@
 
 <h2>Software Composition Analysis (SCA)</h2>
 
-<p>Number of Dependencies: {{dependencies.deps.totalDependencies}}</p>
+<p>Number of Dependencies: {{ sca.dependencies.totalDependencies }}</p>
 
 <h3>SCA Dependency Vulnerability Summary:</h3>
 <p>
   <ul>
-    <li>Critical: {{dependencies.vulnerabilities.CRITICAL.length}}</li>
-    <li>High: {{dependencies.vulnerabilities.HIGH.length}}</li>
-    <li>Moderate: {{dependencies.vulnerabilities.MODERATE.length}}</li>
-    <li>Low: {{dependencies.vulnerabilities.LOW.length}}</li>
+    <li>Critical: {{sca.dependencies.vulnerabilities.critical.length}}</li>
+    <li>High: {{sca.dependencies.vulnerabilities.high.length}}</li>
+    <li>Moderate: {{sca.dependencies.vulnerabilities.moderate.length}}</li>
+    <li>Low: {{sca.dependencies.vulnerabilities.low.length}}</li>
   </ul>
 </p>
 
-<h2>Code Scaning</h2>
+<h2>Code Scanning</h2>
 <p>
-  Total CWE Vulnerabilities Checked: {{codeScanning.cwes.length}}
+  Total CWE Vulnerabilities Checked: {{ scanning.cwe.cwes | length }}
 <!--  <ul>-->
   <div>
-    {{#each codeScanning.cwes}}
-      <strong>{{this}}</strong>
+    {{#each scanning.cwe.cwes}}
+      <strong>{{ this }}</strong>
     {{/each}}
   </div>
 <!--  </ul>-->
@@ -36,8 +36,8 @@
 
 <h3>Open Violations</h3>
 <ul>
-  <li>Errors: {{codeScanning.open.error.length}}</li>
-  <li>Warnings: {{codeScanning.open.warning.length}}</li>
+  <li>Errors: {{ scanning.results.open.scans.error | length }}</li>
+  <li>Warnings: {{ scanning.results.open.scans.warning | length}}</li>
 </ul>
 
 <h4>Errors</h4>
@@ -50,7 +50,7 @@
     <th>CWE</th>
     <th>Link</th>
   </tr>
-  {{#each codeScanning.open.error}}
+  {{#each scanning.results.open.scans.error}}
   <tr>
     <td>{{this.tool}}</td>
     <td>{{this.name}}</td>
@@ -72,7 +72,7 @@
     <th>CWE</th>
     <th>Link</th>
   </tr>
-  {{#each codeScanning.open.warning}}
+  {{#each scanning.results.open.scans.warning}}
   <tr>
     <td>{{this.tool}}</td>
     <td>{{this.name}}</td>
@@ -88,7 +88,7 @@
 
 <h3>Vulnerabilities</h3>
 
-{{#if dependencies.vulnerabilities.CRITICAL.length}}
+{{#if sca.vulnerabilities.bySeverity.critical | length}}
 <h4>Critical</h4>
 <table>
   <tr>
@@ -100,22 +100,22 @@
     <td>Advisory Id</td>
     <td>Advisory Summary</td>
   </tr>
-  {{#each dependencies.vulnerabilities.CRITICAL}}
+  {{#each sca.vulnerabilities.bySeverity.critical }}
   <tr>
-    <td>{{this._data.securityVulnerability.package.name}}</td>
-    <td>{{this._data.securityVulnerability.package.ecosystem}}</td>
-    <td>{{this._data.vulnerableRequirements}}</td>
-    <td>{{this._data.vulnerableManifestPath}}</td>
-    <td>{{this._data.securityVulnerability.severity}}</td>
-    <td>{{this._data.securityAdvisory.ghsaId}}</td>
-    <td>{{this._data.securityAdvisory.summary}}</td>
+    <td>{{this.vulnerability.package.name}}</td>
+    <td>{{this.vulnerability.package.ecosystem}}</td>
+    <td>{{this.vulnerability.package.vulnerableVersionRange}}</td>
+    <td>{{this.source.path}}/{{this.source.manifest}}</td>
+    <td>{{this.vulnerability.severity}}</td>
+    <td>{{this.advisory.ghsaId}}</td>
+    <td>{{this.advisory.summary}}</td>
   </tr>
   {{/each}}
 </table>
 {{/if}}
 
-{{#if dependencies.vulnerabilities.HIGH.length}}
-<h4>High</h4>
+{{#if sca.vulnerabilities.bySeverity.high | length}}
+<h4>Critical</h4>
 <table>
   <tr>
     <td>Package</td>
@@ -126,22 +126,22 @@
     <td>Advisory Id</td>
     <td>Advisory Summary</td>
   </tr>
-  {{#each dependencies.vulnerabilities.HIGH}}
+  {{#each sca.vulnerabilities.bySeverity.high }}
   <tr>
-    <td>{{this._data.securityVulnerability.package.name}}</td>
-    <td>{{this._data.securityVulnerability.package.ecosystem}}</td>
-    <td>{{this._data.vulnerableRequirements}}</td>
-    <td>{{this._data.vulnerableManifestPath}}</td>
-    <td>{{this._data.securityVulnerability.severity}}</td>
-    <td>{{this._data.securityAdvisory.ghsaId}}</td>
-    <td>{{this._data.securityAdvisory.summary}}</td>
+    <td>{{this.vulnerability.package.name}}</td>
+    <td>{{this.vulnerability.package.ecosystem}}</td>
+    <td>{{this.vulnerability.package.vulnerableVersionRange}}</td>
+    <td>{{this.source.path}}/{{this.source.manifest}}</td>
+    <td>{{this.vulnerability.severity}}</td>
+    <td>{{this.advisory.ghsaId}}</td>
+    <td>{{this.advisory.summary}}</td>
   </tr>
   {{/each}}
 </table>
 {{/if}}
 
-{{#if dependencies.vulnerabilities.LOW.length}}
-<h4>Low</h4>
+{{#if sca.vulnerabilities.bySeverity.moderate | length}}
+<h4>Critical</h4>
 <table>
   <tr>
     <td>Package</td>
@@ -152,22 +152,22 @@
     <td>Advisory Id</td>
     <td>Advisory Summary</td>
   </tr>
-  {{#each dependencies.vulnerabilities.LOW}}
+  {{#each sca.vulnerabilities.bySeverity.moderate }}
   <tr>
-    <td>{{this._data.securityVulnerability.package.name}}</td>
-    <td>{{this._data.securityVulnerability.package.ecosystem}}</td>
-    <td>{{this._data.vulnerableRequirements}}</td>
-    <td>{{this._data.vulnerableManifestPath}}</td>
-    <td>{{this._data.securityVulnerability.severity}}</td>
-    <td>{{this._data.securityAdvisory.ghsaId}}</td>
-    <td>{{this._data.securityAdvisory.summary}}</td>
+    <td>{{this.vulnerability.package.name}}</td>
+    <td>{{this.vulnerability.package.ecosystem}}</td>
+    <td>{{this.vulnerability.package.vulnerableVersionRange}}</td>
+    <td>{{this.source.path}}/{{this.source.manifest}}</td>
+    <td>{{this.vulnerability.severity}}</td>
+    <td>{{this.advisory.ghsaId}}</td>
+    <td>{{this.advisory.summary}}</td>
   </tr>
   {{/each}}
 </table>
 {{/if}}
 
-{{#if dependencies.vulnerabilities.MODERATE.length}}
-<h4>Moderate</h4>
+{{#if sca.vulnerabilities.bySeverity.low | length}}
+<h4>Critical</h4>
 <table>
   <tr>
     <td>Package</td>
@@ -178,15 +178,15 @@
     <td>Advisory Id</td>
     <td>Advisory Summary</td>
   </tr>
-  {{#each dependencies.vulnerabilities.MODERATE}}
+  {{#each sca.vulnerabilities.bySeverity.low }}
   <tr>
-    <td>{{this._data.securityVulnerability.package.name}}</td>
-    <td>{{this._data.securityVulnerability.package.ecosystem}}</td>
-    <td>{{this._data.vulnerableRequirements}}</td>
-    <td>{{this._data.vulnerableManifestPath}}</td>
-    <td>{{this._data.securityVulnerability.severity}}</td>
-    <td>{{this._data.securityAdvisory.ghsaId}}</td>
-    <td>{{this._data.securityAdvisory.summary}}</td>
+    <td>{{this.vulnerability.package.name}}</td>
+    <td>{{this.vulnerability.package.ecosystem}}</td>
+    <td>{{this.vulnerability.package.vulnerableVersionRange}}</td>
+    <td>{{this.source.path}}/{{this.source.manifest}}</td>
+    <td>{{this.vulnerability.severity}}</td>
+    <td>{{this.advisory.ghsaId}}</td>
+    <td>{{this.advisory.summary}}</td>
   </tr>
   {{/each}}
 </table>
@@ -197,7 +197,7 @@
   Maven Dependencies:
 <table>
   <tr></tr>
-  {{#each dependencies.deps.dependencies.maven}}
+  {{#each sca.dependencies.dependencies.maven}}
   <tr>
     <td>{{this.name}}</td>
     <td>{{this.version}}</td>
@@ -209,7 +209,31 @@
   NPM Dependencies:
 <table>
   <tr></tr>
-  {{#each dependencies.deps.dependencies.npm}}
+  {{#each sca.dependencies.dependencies.npm}}
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.version}}</td>
+  </tr>
+  {{/each}}
+</table>
+</p>
+<p>
+  Nuget Dependencies:
+<table>
+  <tr></tr>
+  {{#each sca.dependencies.dependencies.nuget}}
+  <tr>
+    <td>{{this.name}}</td>
+    <td>{{this.version}}</td>
+  </tr>
+  {{/each}}
+</table>
+</p>
+<p>
+  Actions Dependencies:
+<table>
+  <tr></tr>
+  {{#each sca.dependencies.dependencies.actions}}
   <tr>
     <td>{{this.name}}</td>
     <td>{{this.version}}</td>
