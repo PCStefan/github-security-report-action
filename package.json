@@ -42,7 +42,7 @@
     "commander": "^12.1.0",
     "nunjucks": "^3.2.4",
     "puppeteer": "^23.1.0",
-    "puppeteer-core": "^23.0.2"
+    "puppeteer-core": "^23.1.0"
   },
   "devDependencies": {
     "@octokit/types": "^13.5.0",
