@@ -34,16 +34,6 @@ jobs:
           outputFilename: "executive_summary.pdf"
           templateModelReport: "executive_summary.html"
 
-      - name: "Generate a report: summary_old"
-        uses: ./
-        with:
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sarifReportDir: ./samples/sarif/peter-murray/advanced-security-java
-          outputDir: ./output
-          outputFilename: "summary_old.pdf"
-          templateModelReport: "summary_old.html"
-
       - name: "Generate a report: summary"
         uses: ./
         with:

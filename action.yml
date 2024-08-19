@@ -1,4 +1,4 @@
-name: "GitHub - Security Report Generator" 
+name: "GitHub - Security Report Generator"
 description: "Generates security reports for a GitHub repository"
 author: "Peter Murray, Stefan Padurariu"
 
@@ -20,12 +20,12 @@ inputs:
   outputFilename:
     description: "The name of the output file for the generated report(s)."
     required: false
-    default: "summary.pdf"
+    default: "executive_summary.pdf"
 
   templateModelReport:
     description: "The name of the template used to generate report(s)."
     required: false
-    default: "summary.html"
+    default: "executive_summary.html"
 
   repository:
     description: "Repository name with owner. For example, peter-murray/github-security-report"
