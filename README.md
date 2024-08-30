@@ -44,7 +44,7 @@ Please refer to: [test-report-generation.yml > "Generate a report" step](https:/
 
 ```
   - name: "Install browser via puppeteer"
-    run: npx puppeteer browsers install chrome
+    run: npx puppeteer@23.1.1 browsers install chrome
 
   - name: "Generate Security Report"
     uses: PCStefan/github-security-report-action@v3
