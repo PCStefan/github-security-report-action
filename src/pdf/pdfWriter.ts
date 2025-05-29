@@ -12,7 +12,13 @@ export async function createPDF(html: string, file: string): Promise<string> {
       width: 1920,
       height: 1280,
       deviceScaleFactor: 1,
-    }
+    },
+    args: [
+      '--no-sandbox',             // Crucial for bypassing the sandbox error
+      '--disable-setuid-sandbox',  // Also helpful for Linux environments
+      '--disable-gpu',
+      '--disable-dev-shm-usage' // Important for limited /dev/shm in some environments
+    ],
   })
 
   const page = await browser.newPage()
